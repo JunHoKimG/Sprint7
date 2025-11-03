@@ -1,9 +1,8 @@
 import pandas as pd
-import plotly as plot
+import plotly.graph_objects as go
 import streamlit as st
 
-
- 
+# Cargar datos
 data = pd.read_csv("vehicles_us.csv")
 
 # Crear botones en la interfaz de Streamlit
@@ -14,7 +13,7 @@ build_scatter = st.button('Mostrar gráfico de dispersión')
 if build_hist:
     st.write('Generando un histograma con los datos de kilometraje de los vehículos.')
 
-    fig = go.Figure(data=[go.Histogram(x=car_data['odometer'])])
+    fig = go.Figure(data=[go.Histogram(x=data['odometer'])])
     fig.update_layout(title_text='Histograma del kilometraje de los autos')
 
     st.plotly_chart(fig, use_container_width=True)
@@ -24,8 +23,8 @@ if build_scatter:
     st.write('Creando un gráfico de dispersión que relaciona el precio con el kilometraje.')
 
     fig = go.Figure(data=[go.Scatter(
-        x=car_data['odometer'],
-        y=car_data['price'],
+        x=data['odometer'],
+        y=data['price'],
         mode='markers',
         marker=dict(opacity=0.6)
     )])
